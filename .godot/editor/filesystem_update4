@@ -1,5 +1,16 @@
-res://BaseLevel.tscn
+res://RayPickerCamera/ray_picker_camera.tscn
 res://MeshLibraries/SpaceLibrary.tres
+res://BaseLevel.tscn
+res://RayPickerCamera/ray_picker_camera.gd
 res://MeshLibraries/SpaceLibrary.tscn
 res://Enemy/Enemy.tscn
 res://Base/Base.tscn
+res://TurretManager.gd
+res://Turret/turret.tscn
+res://Turret/projectile.tscn
+res://Turret/projectile.gd
+res://Turret/turret.gd
+res://Base/Base.gd
+res://Enemy/Enemy.gd
+res://EnemyPath.gd
+res://Bank.gd

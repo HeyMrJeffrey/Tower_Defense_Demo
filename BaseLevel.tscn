@@ -1,8 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://cvhfkj6reue6r"]
+[gd_scene load_steps=15 format=3 uid="uid://cvhfkj6reue6r"]
 
 [ext_resource type="MeshLibrary" uid="uid://bs0ol0nqv6hol" path="res://MeshLibraries/SpaceLibrary.tres" id="1_bbb5f"]
+[ext_resource type="PackedScene" uid="uid://bjkef8tjfu1gp" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_qw6h6"]
 [ext_resource type="PackedScene" uid="uid://2bayx3xn1qvt" path="res://Enemy/Enemy.tscn" id="2_oqk2b"]
 [ext_resource type="PackedScene" uid="uid://ds0eik7qoywog" path="res://Base/Base.tscn" id="3_6m2a0"]
+[ext_resource type="Script" path="res://EnemyPath.gd" id="3_fyi8w"]
+[ext_resource type="Script" path="res://Turret/TurretManager.gd" id="5_8fijy"]
+[ext_resource type="PackedScene" uid="uid://bjxlpmrlusw8b" path="res://Turret/turret.tscn" id="6_42usq"]
+[ext_resource type="Script" path="res://Bank.gd" id="8_edaoh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0sfxh"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -27,6 +32,11 @@ _data = {
 }
 point_count = 5
 
+[sub_resource type="LabelSettings" id="LabelSettings_gfia5"]
+font_size = 64
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
 [node name="BaseLevel" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -41,8 +51,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 size = Vector3(100, 2, 100)
 material = SubResource("StandardMaterial3D_8u07w")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 14.5, 9.5)
+[node name="RayPickerCamera" parent="." node_paths=PackedStringArray("gridmap", "turret_manager") instance=ExtResource("1_qw6h6")]
+gridmap = NodePath("../GridMap")
+turret_manager = NodePath("../TurretManager")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("1_bbb5f")
@@ -52,13 +63,16 @@ data = {
 "cells": PackedInt32Array(65535, 65534, 0, 65535, 2, 0, 4, 65535, 0, 65531, 65534, 0, 65531, 0, 0, 65531, 2, 0, 65532, 2, 0, 65533, 2, 0, 65534, 65534, 0, 65534, 2, 0, 0, 65534, 0, 0, 2, 0, 1, 65534, 0, 1, 2, 0, 2, 65534, 0, 2, 2, 0, 3, 65534, 0, 3, 2, 0, 4, 65534, 0, 4, 0, 0, 4, 1, 0, 4, 2, 0, 65531, 65535, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 65532, 65534, 0, 65532, 65535, 0)
 }
 
-[node name="Path3D" type="Path3D" parent="."]
+[node name="EnemyPath" type="Path3D" parent="."]
 curve = SubResource("Curve3D_l4ibr")
+script = ExtResource("3_fyi8w")
+enemy_scene = ExtResource("2_oqk2b")
 
-[node name="Enemy" parent="Path3D" instance=ExtResource("2_oqk2b")]
-transform = Transform3D(-4.37102e-08, 0, -0.999972, 0, 1, 0, 0.999972, 0, -4.37102e-08, -22, 0, 6)
+[node name="EnemySpawnTimer" type="Timer" parent="EnemyPath"]
+wait_time = 2.0
+autostart = true
 
-[node name="Road" type="CSGPolygon3D" parent="Path3D"]
+[node name="Road" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(-1, 0, -1, 0.1, 1, 0.1, 1, 0)
 mode = 2
 path_node = NodePath("..")
@@ -71,7 +85,7 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="LeftEdge" type="CSGPolygon3D" parent="Path3D"]
+[node name="LeftEdge" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(-1.1, 0, -1.1, 0.15, -0.9, 0.15, -0.9, 0)
 mode = 2
 path_node = NodePath("..")
@@ -84,7 +98,7 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="RightEdge" type="CSGPolygon3D" parent="Path3D"]
+[node name="RightEdge" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(1.1, 0, 1.1, 0.15, 0.9, 0.15, 0.9, 0)
 mode = 2
 path_node = NodePath("..")
@@ -98,3 +112,30 @@ path_u_distance = 1.0
 path_joined = false
 
 [node name="Base" parent="." instance=ExtResource("3_6m2a0")]
+
+[node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
+script = ExtResource("5_8fijy")
+turret = ExtResource("6_42usq")
+enemy_path = NodePath("../EnemyPath")
+
+[node name="Bank" type="MarginContainer" parent="." groups=["bank"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("8_edaoh")
+
+[node name="Label" type="Label" parent="Bank"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "placeholder"
+label_settings = SubResource("LabelSettings_gfia5")
+
+[connection signal="timeout" from="EnemyPath/EnemySpawnTimer" to="EnemyPath" method="spawn_enemy"]
