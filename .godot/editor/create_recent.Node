@@ -1,6 +1,7 @@
+Timer
+Node
 Label
 MarginContainer
-Timer
 AnimationPlayer
 CollisionShape3D
 Area3D
@@ -11,5 +12,3 @@ Label3D
 CSGCylinder3D
 PathFollow3D
 CSGPolygon3D
-Path3D
-GridMap

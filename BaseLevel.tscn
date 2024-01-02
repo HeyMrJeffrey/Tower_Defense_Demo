@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvhfkj6reue6r"]
+[gd_scene load_steps=16 format=3 uid="uid://cvhfkj6reue6r"]
 
 [ext_resource type="MeshLibrary" uid="uid://bs0ol0nqv6hol" path="res://MeshLibraries/SpaceLibrary.tres" id="1_bbb5f"]
 [ext_resource type="PackedScene" uid="uid://bjkef8tjfu1gp" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_qw6h6"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Turret/TurretManager.gd" id="5_8fijy"]
 [ext_resource type="PackedScene" uid="uid://bjxlpmrlusw8b" path="res://Turret/turret.tscn" id="6_42usq"]
 [ext_resource type="Script" path="res://Bank.gd" id="8_edaoh"]
+[ext_resource type="PackedScene" uid="uid://giph1usuhwnh" path="res://DifficultyManager/difficulty_manager.tscn" id="9_y6iq2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0sfxh"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -63,10 +64,11 @@ data = {
 "cells": PackedInt32Array(65535, 65534, 0, 65535, 2, 0, 4, 65535, 0, 65531, 65534, 0, 65531, 0, 0, 65531, 2, 0, 65532, 2, 0, 65533, 2, 0, 65534, 65534, 0, 65534, 2, 0, 0, 65534, 0, 0, 2, 0, 1, 65534, 0, 1, 2, 0, 2, 65534, 0, 2, 2, 0, 3, 65534, 0, 3, 2, 0, 4, 65534, 0, 4, 0, 0, 4, 1, 0, 4, 2, 0, 65531, 65535, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 65532, 65534, 0, 65532, 65535, 0)
 }
 
-[node name="EnemyPath" type="Path3D" parent="."]
+[node name="EnemyPath" type="Path3D" parent="." node_paths=PackedStringArray("difficulty_manager")]
 curve = SubResource("Curve3D_l4ibr")
 script = ExtResource("3_fyi8w")
 enemy_scene = ExtResource("2_oqk2b")
+difficulty_manager = NodePath("../DifficultyManager")
 
 [node name="EnemySpawnTimer" type="Timer" parent="EnemyPath"]
 wait_time = 2.0
@@ -112,6 +114,7 @@ path_u_distance = 1.0
 path_joined = false
 
 [node name="Base" parent="." instance=ExtResource("3_6m2a0")]
+max_health = 50
 
 [node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
 script = ExtResource("5_8fijy")
@@ -138,4 +141,7 @@ size_flags_vertical = 8
 text = "placeholder"
 label_settings = SubResource("LabelSettings_gfia5")
 
+[node name="DifficultyManager" parent="." instance=ExtResource("9_y6iq2")]
+
 [connection signal="timeout" from="EnemyPath/EnemySpawnTimer" to="EnemyPath" method="spawn_enemy"]
+[connection signal="stop_spawning_enemies" from="DifficultyManager" to="EnemyPath" method="_on_difficulty_manager_stop_spawning_enemies"]
