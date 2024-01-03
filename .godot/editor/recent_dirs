@@ -1,3 +1,5 @@
+res://Assets
+res://MeshLibraries
 res://UserInterface
 res://DifficultyManager
 res://Turret
@@ -5,4 +7,3 @@ res://RayPickerCamera
 res://Base
 res://
 res://Enemy
-res://MeshLibraries

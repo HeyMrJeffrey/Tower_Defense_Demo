@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0ix1pb6fgjnr"]
+[gd_scene load_steps=6 format=3 uid="uid://c0ix1pb6fgjnr"]
 
 [ext_resource type="Script" path="res://UserInterface/victory_layer.gd" id="1_fxbhh"]
+[ext_resource type="FontFile" uid="uid://kbvdrn1gei7x" path="res://Assets/LUCKIESTGUY.TTF" id="2_3q25j"]
 [ext_resource type="Texture2D" uid="uid://nhv0uep8yhux" path="res://Images/star.png" id="2_f5ef4"]
+
+[sub_resource type="Theme" id="Theme_3hv6o"]
+default_font = ExtResource("2_3q25j")
 
 [sub_resource type="LabelSettings" id="LabelSettings_qf6h0"]
 font_size = 96
@@ -25,6 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_3hv6o")
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
 custom_minimum_size = Vector2(400, 400)
@@ -94,6 +99,7 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 10
 
 [node name="RETRY" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

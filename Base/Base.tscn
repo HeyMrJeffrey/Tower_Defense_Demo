@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ds0eik7qoywog"]
+[gd_scene load_steps=4 format=3 uid="uid://ds0eik7qoywog"]
 
 [ext_resource type="Script" path="res://Base/Base.gd" id="1_goo1g"]
 [ext_resource type="PackedScene" uid="uid://blj7pm3x33mqh" path="res://Assets/Base.glb" id="2_5ekyh"]
+[ext_resource type="FontFile" uid="uid://kbvdrn1gei7x" path="res://Assets/LUCKIESTGUY.TTF" id="2_hbd3w"]
 
 [node name="Base" type="Node3D" groups=["base"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -6)
@@ -11,6 +12,7 @@ script = ExtResource("1_goo1g")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, 0)
 billboard = 1
 text = "#"
+font = ExtResource("2_hbd3w")
 font_size = 500
 outline_size = 100
 

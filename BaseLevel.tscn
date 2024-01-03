@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cvhfkj6reue6r"]
+[gd_scene load_steps=20 format=3 uid="uid://cvhfkj6reue6r"]
 
 [ext_resource type="MeshLibrary" uid="uid://bs0ol0nqv6hol" path="res://MeshLibraries/SpaceLibrary.tres" id="1_bbb5f"]
 [ext_resource type="PackedScene" uid="uid://bjkef8tjfu1gp" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_qw6h6"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Turret/TurretManager.gd" id="5_8fijy"]
 [ext_resource type="PackedScene" uid="uid://bjxlpmrlusw8b" path="res://Turret/turret.tscn" id="6_42usq"]
 [ext_resource type="Script" path="res://Bank.gd" id="8_edaoh"]
+[ext_resource type="FontFile" uid="uid://kbvdrn1gei7x" path="res://Assets/LUCKIESTGUY.TTF" id="8_m5ywc"]
 [ext_resource type="PackedScene" uid="uid://giph1usuhwnh" path="res://DifficultyManager/difficulty_manager.tscn" id="9_y6iq2"]
 [ext_resource type="PackedScene" uid="uid://c0ix1pb6fgjnr" path="res://UserInterface/victory_layer.tscn" id="10_8gi2h"]
 
@@ -25,7 +26,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u07w"]
-albedo_color = Color(0.109804, 0.109804, 0.109804, 1)
+albedo_color = Color(0.560784, 0.6, 0.301961, 1)
 
 [sub_resource type="Curve3D" id="Curve3D_l4ibr"]
 _data = {
@@ -33,6 +34,12 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0)
 }
 point_count = 5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mlms2"]
+albedo_color = Color(0.227451, 0.227451, 0.227451, 1)
+
+[sub_resource type="Theme" id="Theme_bdd21"]
+default_font = ExtResource("8_m5ywc")
 
 [sub_resource type="LabelSettings" id="LabelSettings_gfia5"]
 font_size = 64
@@ -48,12 +55,13 @@ environment = SubResource("Environment_8e0ow")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 size = Vector3(100, 2, 100)
 material = SubResource("StandardMaterial3D_8u07w")
 
 [node name="RayPickerCamera" parent="." node_paths=PackedStringArray("gridmap", "turret_manager") instance=ExtResource("1_qw6h6")]
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 2.5, 16.5, 12)
 gridmap = NodePath("../GridMap")
 turret_manager = NodePath("../TurretManager")
 
@@ -62,7 +70,7 @@ mesh_library = ExtResource("1_bbb5f")
 cell_size = Vector3(4, 4, 4)
 cell_center_y = false
 data = {
-"cells": PackedInt32Array(65535, 65534, 0, 65535, 2, 0, 4, 65535, 0, 65531, 65534, 0, 65531, 0, 0, 65531, 2, 0, 65532, 2, 0, 65533, 2, 0, 65534, 65534, 0, 65534, 2, 0, 0, 65534, 0, 0, 2, 0, 1, 65534, 0, 1, 2, 0, 2, 65534, 0, 2, 2, 0, 3, 65534, 0, 3, 2, 0, 4, 65534, 0, 4, 0, 0, 4, 1, 0, 4, 2, 0, 65531, 65535, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 65532, 65534, 0, 65532, 65535, 0)
+"cells": PackedInt32Array(65535, 65534, 0, 65535, 2, 0, 4, 65535, 0, 65531, 65534, 1048579, 65531, 0, 0, 65531, 2, 1441794, 65532, 2, 0, 65533, 2, 0, 65534, 65534, 0, 65534, 2, 0, 0, 65534, 0, 0, 2, 0, 1, 65534, 0, 1, 2, 0, 2, 65534, 0, 2, 2, 0, 3, 65534, 0, 3, 2, 0, 4, 65534, 0, 4, 0, 0, 4, 1, 0, 4, 2, 0, 65531, 65535, 1441794, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 65532, 65534, 1441794, 65532, 65535, 1441794, 2, 0, 0, 65530, 65535, 2, 65530, 0, 655363, 65530, 2, 1048578, 65530, 3, 2, 4, 4, 3, 3, 4, 3, 2, 4, 1441794, 1, 4, 2, 0, 4, 1441795, 65535, 4, 655363, 65534, 4, 655362, 65533, 4, 655362, 65532, 4, 1048579, 65531, 4, 2, 65530, 4, 655362, 5, 4, 3, 65530, 65534, 1048578, 65530, 65533, 3, 65531, 65533, 1441794, 65532, 65533, 3, 65533, 65533, 1048578, 65534, 65533, 3, 65535, 65533, 1441794, 0, 65533, 655362, 1, 65533, 1048578, 2, 65533, 2, 3, 65533, 1441795, 4, 65533, 655362, 5, 65533, 2, 5, 65534, 1441794, 5, 65535, 655363, 5, 0, 3, 5, 1, 2, 5, 2, 1048579, 5, 3, 655362, 6, 3, 1048578, 6, 2, 2, 6, 1, 655362, 7, 1, 1048578, 6, 0, 2, 7, 0, 2, 6, 65535, 1441794, 6, 65534, 655362, 6, 65533, 1048578, 7, 65533, 655362, 7, 65532, 2, 6, 65532, 3, 5, 65532, 1048578, 4, 65532, 1048579, 3, 65532, 1441794, 2, 65532, 1441794, 1, 65532, 655363, 0, 65532, 1048578, 65535, 65532, 1441795, 65534, 65532, 2, 65533, 65532, 2, 65532, 65532, 1441794, 65531, 65532, 655362, 65530, 65532, 655362, 65529, 65532, 1048578, 65529, 65533, 2, 65529, 65534, 1441794, 65529, 65535, 1441794, 65529, 0, 655362, 65529, 1, 1048578, 65531, 3, 1441795, 65532, 3, 1441794, 65533, 3, 3, 65534, 3, 2, 65535, 3, 1441794, 0, 3, 655362, 1, 3, 1048579, 2, 3, 655363, 3, 3, 1441795, 4, 3, 1441794, 65528, 1, 1048579, 65528, 0, 3, 65528, 65535, 2, 65528, 65534, 1441794, 65528, 65533, 1048579, 65528, 65532, 1048578, 65528, 65531, 1441794, 65527, 65531, 2, 65527, 65532, 1441794, 65527, 65533, 655362, 65527, 65534, 655362, 65527, 65535, 655363, 65527, 0, 2, 65528, 2, 655362, 65527, 1, 1048578, 65527, 2, 655363, 65529, 2, 655362, 65529, 3, 1048578, 65529, 4, 3, 65528, 4, 2, 65527, 4, 1441795, 65527, 3, 1441794, 65528, 3, 1048578, 6, 4, 2, 7, 4, 1048579, 7, 3, 655362, 7, 2, 1048578, 7, 65535, 1048579, 8, 65534, 2, 7, 65534, 1048579, 8, 65531, 1048578, 7, 65531, 2, 6, 65531, 1441794, 5, 65531, 1441794, 4, 65531, 655362, 3, 65531, 1048578, 2, 65531, 2, 1, 65531, 1441794, 0, 65531, 655362, 65535, 65531, 1048578, 65534, 65531, 2, 65533, 65531, 2, 65532, 65531, 1441794, 65531, 65531, 655362, 65530, 65531, 1048578, 65529, 65531, 1441795, 8, 65532, 1441795, 8, 65533, 1048578, 8, 65535, 2, 8, 0, 655362, 8, 4, 1048579, 8, 3, 655363, 8, 1, 1441795, 8, 2, 1441795, 9, 0, 2, 9, 3, 655363, 65526, 4, 1441795, 65526, 2, 655363, 9, 2, 655362, 9, 1, 1048578, 9, 65535, 1441794, 9, 65534, 655362, 9, 65533, 1048578, 9, 65532, 2, 9, 65531, 1441794, 9, 65530, 655362, 8, 65530, 1048578, 7, 65530, 2, 6, 65530, 1441794, 5, 65530, 655362, 4, 65530, 1048578, 3, 65530, 2, 2, 65530, 655362, 1, 65530, 1048578, 0, 65530, 2, 65535, 65530, 655362, 65534, 65530, 655362, 65533, 65530, 1048578, 65532, 65530, 2, 65531, 65530, 1441794, 65530, 65530, 655362, 65529, 65530, 655362, 65528, 65530, 1048578, 65527, 65530, 1441794, 65527, 65529, 655362, 65528, 65529, 655362, 65529, 65529, 1048578, 65530, 65529, 2, 65531, 65529, 2, 65532, 65529, 1441794, 65533, 65529, 1048578, 65534, 65529, 2, 65535, 65529, 655362, 0, 65529, 1048578, 1, 65529, 1048578, 2, 65529, 2, 3, 65529, 1441794, 4, 65529, 1441794, 5, 65529, 655362, 6, 65529, 1048578, 7, 65529, 2, 8, 65529, 1441794, 9, 65529, 655362, 10, 65529, 2, 11, 65529, 1441794)
 }
 
 [node name="EnemyPath" type="Path3D" parent="." node_paths=PackedStringArray("difficulty_manager", "victory_layer")]
@@ -88,6 +96,7 @@ path_local = false
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
+material = SubResource("StandardMaterial3D_mlms2")
 
 [node name="LeftEdge" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(-1.1, 0, -1.1, 0.15, -0.9, 0.15, -0.9, 0)
@@ -116,7 +125,6 @@ path_u_distance = 1.0
 path_joined = false
 
 [node name="Base" parent="." instance=ExtResource("3_6m2a0")]
-max_health = 50
 
 [node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
 script = ExtResource("5_8fijy")
@@ -130,11 +138,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = SubResource("Theme_bdd21")
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 script = ExtResource("8_edaoh")
+starting_gold = 150
 
 [node name="Label" type="Label" parent="Bank"]
 layout_mode = 2
@@ -142,6 +152,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "placeholder"
 label_settings = SubResource("LabelSettings_gfia5")
+uppercase = true
 
 [node name="DifficultyManager" parent="." instance=ExtResource("9_y6iq2")]
 
