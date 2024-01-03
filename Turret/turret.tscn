@@ -1,21 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjxlpmrlusw8b"]
+[gd_scene load_steps=8 format=3 uid="uid://bjxlpmrlusw8b"]
 
 [ext_resource type="Script" path="res://Turret/turret.gd" id="1_dmhsn"]
 [ext_resource type="PackedScene" uid="uid://chh4wgtol6o2b" path="res://Turret/projectile.tscn" id="1_va1ma"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_ah1uo"]
-height = 1.0
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_tcbw2"]
-top_radius = 0.6
-bottom_radius = 0.6
-height = 0.6
-
-[sub_resource type="BoxMesh" id="BoxMesh_fayom"]
-size = Vector3(0.1, 0.1, 0.3)
-
-[sub_resource type="BoxMesh" id="BoxMesh_a3pxa"]
-size = Vector3(0.2, 0.2, 0.4)
+[ext_resource type="PackedScene" uid="uid://d0og7irdqa3p4" path="res://Assets/Cannon.glb" id="3_ouogw"]
+[ext_resource type="PackedScene" uid="uid://b81vrf0lkcwwu" path="res://Assets/TurretBase.glb" id="4_8bcxq"]
 
 [sub_resource type="Animation" id="Animation_kla4h"]
 resource_name = "Fire"
@@ -58,23 +46,14 @@ _data = {
 script = ExtResource("1_dmhsn")
 projectile = ExtResource("1_va1ma")
 
-[node name="TurretBase" type="MeshInstance3D" parent="."]
+[node name="TurretBase" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("CylinderMesh_ah1uo")
 
-[node name="TurretTop" type="MeshInstance3D" parent="TurretBase"]
+[node name="TurretTop" type="Node3D" parent="TurretBase"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
-mesh = SubResource("CylinderMesh_tcbw2")
 
-[node name="TurretGunBarrel" type="MeshInstance3D" parent="TurretBase/TurretTop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.9)
-mesh = SubResource("BoxMesh_fayom")
-skeleton = NodePath("../..")
-
-[node name="TurretGunBase" type="MeshInstance3D" parent="TurretBase/TurretTop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.6)
-mesh = SubResource("BoxMesh_a3pxa")
-skeleton = NodePath("../..")
+[node name="Cannon" parent="TurretBase/TurretTop" instance=ExtResource("3_ouogw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
@@ -83,5 +62,7 @@ autostart = true
 libraries = {
 "": SubResource("AnimationLibrary_ryfdj")
 }
+
+[node name="TurretBase2" parent="." instance=ExtResource("4_8bcxq")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

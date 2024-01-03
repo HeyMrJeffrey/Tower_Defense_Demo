@@ -7,6 +7,9 @@ res://RayPickerCamera/ray_picker_camera.tscn
 res://Turret/turret.tscn
 res://Turret/projectile.tscn
 res://DifficultyManager/difficulty_manager.tscn
-res://DifficultyManager/difficulty_manager.gd
 res://EnemyPath.gd
-res://Enemy/Enemy.gd
+res://Base/Base.gd
+res://UserInterface/victory_layer.tscn
+res://UserInterface/victory_layer.gd
+res://Bank.gd
+res://Turret/turret.gd
