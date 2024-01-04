@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dk2b51mucjxxn"]
 
 [ext_resource type="PackedScene" uid="uid://xarn54v7n85b" path="res://Assets/Tree.glb" id="1_t5ivn"]
-[ext_resource type="PackedScene" uid="uid://b81vrf0lkcwwu" path="res://Assets/Rocks.glb" id="2_b32el"]
+[ext_resource type="PackedScene" uid="uid://b81vrf0lkcwwu" path="res://Assets/TurretBase.glb" id="2_b32el"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ojd1g"]
 blend_mode = 1

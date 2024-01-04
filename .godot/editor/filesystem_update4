@@ -1,6 +1,7 @@
-res://MeshLibraries/SpaceLibrary.tscn
-res://MeshLibraries/SpaceLibrary.tres
 res://BaseLevel.tscn
+res://MeshLibraries/SpaceLibrary.tres
+res://Base/Base.gd
+res://MeshLibraries/SpaceLibrary.tscn
 res://Enemy/Enemy.tscn
 res://Base/Base.tscn
 res://RayPickerCamera/ray_picker_camera.tscn
@@ -8,7 +9,3 @@ res://Turret/turret.tscn
 res://Turret/projectile.tscn
 res://DifficultyManager/difficulty_manager.tscn
 res://UserInterface/victory_layer.tscn
-res://Turret/projectile.gd
-res://DifficultyManager/difficulty_manager.gd
-res://Base/Base.gd
-res://Bank.gd

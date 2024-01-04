@@ -155,6 +155,7 @@ label_settings = SubResource("LabelSettings_gfia5")
 uppercase = true
 
 [node name="DifficultyManager" parent="." instance=ExtResource("9_y6iq2")]
+game_length = 30.0
 
 [node name="VictoryLayer" parent="." instance=ExtResource("10_8gi2h")]
 visible = false
